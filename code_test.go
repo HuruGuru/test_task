@@ -82,12 +82,16 @@ func TestProcessDocument(t *testing.T) {
 			writeToDatabaseError = tt.dbErr
 
 			result, err := ProcessDocument(tt.input)
-			if (err == nil && tt.expectedErr != nil) || (err != nil && tt.expectedErr == nil) || (err != nil && tt.expectedErr != nil && err.Error() != tt.expectedErr.Error()) {
-				t.Errorf("Expected error '%v', got '%v'", tt.expectedErr, err)
-			}
-
 			if result != tt.expectedRes {
 				t.Errorf("Expected result %v, got %v", tt.expectedRes, result)
+			}
+
+			if err == nil && tt.expectedErr != nil {
+				t.Errorf("Expected error %v, but got nil", tt.expectedErr)
+			} else if err != nil && tt.expectedErr == nil {
+				t.Errorf("Expected no error, but got %v", err)
+			} else if err != nil && tt.expectedErr != nil && err.Error() != tt.expectedErr.Error() {
+				t.Errorf("Expected error %v, got %v", tt.expectedErr, err)
 			}
 		})
 	}
