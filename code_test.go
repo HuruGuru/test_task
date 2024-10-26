@@ -53,7 +53,7 @@ func TestProcessDocument(t *testing.T) {
 		},
 		{
 			name:        "Missing header",
-			input:       []byte(`{"line_items":["test_item_1", "test_item_2", "test_item_3"]}`),
+			input:       []byte(`{"header":"","line_items":["test_item_1", "test_item_2", "test_item_3"]}`),
 			expectedRes: false,
 			expectedErr: errors.New("validation error"),
 			dbErr:       nil,
